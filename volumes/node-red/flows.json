@@ -1,0 +1,584 @@
+[
+    {
+        "id": "ca360d61d01965ce",
+        "type": "tab",
+        "label": "CAN to MQTT",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "38b3d4acd9a65f15",
+        "type": "tab",
+        "label": "Actors",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3ab931a60dfb9b73",
+        "type": "tab",
+        "label": "MQTT-Broker",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "258d754e12a8d65b",
+        "type": "can-config",
+        "name": "CAN-BUS",
+        "socket": "can0",
+        "bus": "",
+        "dbFile": ""
+    },
+    {
+        "id": "b13517a867789a6e",
+        "type": "can-config",
+        "name": "",
+        "socket": "can0",
+        "bus": "",
+        "dbFile": ""
+    },
+    {
+        "id": "8bbda2c40e976cc4",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "02c1eccfd828fe68",
+        "type": "mqtt in",
+        "z": "ca360d61d01965ce",
+        "name": "Subcriber CAN-ID 51",
+        "topic": "51",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "8bbda2c40e976cc4",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 480,
+        "y": 280,
+        "wires": [
+            [
+                "a5ae51c98c3d28de"
+            ]
+        ]
+    },
+    {
+        "id": "8416cc354f0b469c",
+        "type": "http request",
+        "z": "ca360d61d01965ce",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "body",
+        "url": "localhost:1880/message/add",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 1330,
+        "y": 280,
+        "wires": [
+            [
+                "e3056ca765409295"
+            ]
+        ]
+    },
+    {
+        "id": "d8a79f71d5346e53",
+        "type": "http in",
+        "z": "ca360d61d01965ce",
+        "name": "",
+        "url": "/message/add",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 930,
+        "y": 620,
+        "wires": [
+            [
+                "3f666169c909aa07",
+                "4003e54a058add98"
+            ]
+        ]
+    },
+    {
+        "id": "3f666169c909aa07",
+        "type": "debug",
+        "z": "ca360d61d01965ce",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1150,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "4003e54a058add98",
+        "type": "http response",
+        "z": "ca360d61d01965ce",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 1160,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "e3056ca765409295",
+        "type": "debug",
+        "z": "ca360d61d01965ce",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1610,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "a5ae51c98c3d28de",
+        "type": "buffer-parser",
+        "z": "ca360d61d01965ce",
+        "name": "Buffer Parser",
+        "data": "payload",
+        "dataType": "msg",
+        "specification": "spec",
+        "specificationType": "ui",
+        "items": [
+            {
+                "type": "buffer",
+                "name": "CanMessage",
+                "offset": 0,
+                "length": 12,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            }
+        ],
+        "swap1": "",
+        "swap2": "",
+        "swap3": "",
+        "swap1Type": "swap",
+        "swap2Type": "swap",
+        "swap3Type": "swap",
+        "msgProperty": "payload",
+        "msgPropertyType": "str",
+        "resultType": "keyvalue",
+        "resultTypeType": "output",
+        "multipleResult": false,
+        "fanOutMultipleResult": false,
+        "setTopic": true,
+        "outputs": 1,
+        "x": 760,
+        "y": 280,
+        "wires": [
+            [
+                "3495bb33c3b7e6b9"
+            ]
+        ]
+    },
+    {
+        "id": "3495bb33c3b7e6b9",
+        "type": "json",
+        "z": "ca360d61d01965ce",
+        "name": "",
+        "property": "payload",
+        "action": "str",
+        "pretty": false,
+        "x": 1030,
+        "y": 280,
+        "wires": [
+            [
+                "8416cc354f0b469c"
+            ]
+        ]
+    },
+    {
+        "id": "1a097d22db19941f",
+        "type": "mqtt out",
+        "z": "ca360d61d01965ce",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "8bbda2c40e976cc4",
+        "x": 1040,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "93b2cac0d0e79d36",
+        "type": "inject",
+        "z": "ca360d61d01965ce",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "send/52",
+        "payload": "[200,200,0,0,0,1,75,20]",
+        "payloadType": "bin",
+        "x": 800,
+        "y": 380,
+        "wires": [
+            [
+                "1a097d22db19941f"
+            ]
+        ]
+    },
+    {
+        "id": "b14fd5819e7c8204",
+        "type": "i2c scan",
+        "z": "38b3d4acd9a65f15",
+        "name": "",
+        "busno": "1",
+        "x": 710,
+        "y": 240,
+        "wires": [
+            [
+                "ed15f69f6cdd6b9c"
+            ],
+            [
+                "d44e44acbbfb08b2"
+            ]
+        ]
+    },
+    {
+        "id": "7d1608a12c731b0b",
+        "type": "inject",
+        "z": "38b3d4acd9a65f15",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 500,
+        "y": 240,
+        "wires": [
+            [
+                "b14fd5819e7c8204"
+            ]
+        ]
+    },
+    {
+        "id": "ed15f69f6cdd6b9c",
+        "type": "debug",
+        "z": "38b3d4acd9a65f15",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "d44e44acbbfb08b2",
+        "type": "debug",
+        "z": "38b3d4acd9a65f15",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 990,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "e692def5cba7d4b7",
+        "type": "i2c in",
+        "z": "38b3d4acd9a65f15",
+        "name": "",
+        "busno": "1",
+        "address": "56",
+        "command": "1",
+        "count": "1",
+        "x": 700,
+        "y": 400,
+        "wires": [
+            [
+                "8498a2439c19f86d"
+            ]
+        ]
+    },
+    {
+        "id": "c103ce4d1dc6ec67",
+        "type": "inject",
+        "z": "38b3d4acd9a65f15",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 500,
+        "y": 400,
+        "wires": [
+            [
+                "e692def5cba7d4b7"
+            ]
+        ]
+    },
+    {
+        "id": "8498a2439c19f86d",
+        "type": "debug",
+        "z": "38b3d4acd9a65f15",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "37f62fa849ba1ce4",
+        "type": "pcf8574",
+        "z": "38b3d4acd9a65f15",
+        "devadr": "8",
+        "mode": "1",
+        "addressdi": 0,
+        "addressdo": "4",
+        "x": 720,
+        "y": 520,
+        "wires": [
+            [
+                "01d08deee436493b"
+            ]
+        ]
+    },
+    {
+        "id": "293bf595399b67c7",
+        "type": "inject",
+        "z": "38b3d4acd9a65f15",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 510,
+        "y": 520,
+        "wires": [
+            [
+                "37f62fa849ba1ce4"
+            ]
+        ]
+    },
+    {
+        "id": "01d08deee436493b",
+        "type": "debug",
+        "z": "38b3d4acd9a65f15",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 960,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "38fc7fcc1ed864f6",
+        "type": "aedes broker",
+        "z": "3ab931a60dfb9b73",
+        "name": "test",
+        "mqtt_port": 1883,
+        "mqtt_ws_bind": "port",
+        "mqtt_ws_port": "",
+        "mqtt_ws_path": "",
+        "cert": "",
+        "key": "",
+        "certname": "",
+        "keyname": "",
+        "dburl": "",
+        "usetls": false,
+        "x": 830,
+        "y": 260,
+        "wires": [
+            [
+                "cdd1d6bc450db51d"
+            ],
+            [
+                "a314aa8d60ad610a"
+            ]
+        ]
+    },
+    {
+        "id": "cdd1d6bc450db51d",
+        "type": "debug",
+        "z": "3ab931a60dfb9b73",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1130,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "a314aa8d60ad610a",
+        "type": "debug",
+        "z": "3ab931a60dfb9b73",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1150,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "f7eaab44403456df",
+        "type": "mqtt out",
+        "z": "3ab931a60dfb9b73",
+        "name": "Publisher",
+        "topic": "can",
+        "qos": "1",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "8bbda2c40e976cc4",
+        "x": 1140,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "d0296ae228af7c31",
+        "type": "inject",
+        "z": "3ab931a60dfb9b73",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 830,
+        "y": 380,
+        "wires": [
+            [
+                "f7eaab44403456df"
+            ]
+        ]
+    }
+]

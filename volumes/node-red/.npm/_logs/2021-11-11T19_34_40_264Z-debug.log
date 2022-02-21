@@ -1,0 +1,62 @@
+0 info it worked if it ends with ok
+1 verbose cli [
+1 verbose cli   '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '--no-audit',
+1 verbose cli   '--no-update-notifier',
+1 verbose cli   '--no-fund',
+1 verbose cli   '--save',
+1 verbose cli   '--save-prefix=~',
+1 verbose cli   '--production',
+1 verbose cli   '--engine-strict',
+1 verbose cli   'node-red-contrib-canbus@1.0.1'
+1 verbose cli ]
+2 info using npm@6.14.15
+3 info using node@v14.18.1
+4 verbose npm-session 8ac0f614d3de1304
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 http fetch GET 200 https://registry.npmjs.org/node-red-contrib-canbus 1227ms
+8 http fetch GET 200 https://registry.npmjs.org/node-red-contrib-canbus/-/node-red-contrib-canbus-1.0.1.tgz 100ms
+9 silly pacote version manifest for node-red-contrib-canbus@1.0.1 fetched in 1367ms
+10 timing stage:loadCurrentTree Completed in 1438ms
+11 silly install loadIdealTree
+12 silly install cloneCurrentTreeToIdealTree
+13 timing stage:loadIdealTree:cloneCurrentTree Completed in 1ms
+14 silly install loadShrinkwrap
+15 timing stage:loadIdealTree:loadShrinkwrap Completed in 2ms
+16 silly install loadAllDepsIntoIdealTree
+17 timing stage:rollbackFailedOptional Completed in 1ms
+18 timing stage:runTopLevelLifecycles Completed in 1447ms
+19 silly saveTree node-red-project@0.0.1
+20 verbose stack Error: Unsupported engine for node-red-contrib-canbus@1.0.1: wanted: {"node":"=0.12.x"} (current: {"node":"14.18.1","npm":"6.14.15"})
+20 verbose stack     at checkEngine (/usr/local/lib/node_modules/npm/node_modules/npm-install-checks/index.js:14:14)
+20 verbose stack     at module.exports.isInstallable (/usr/local/lib/node_modules/npm/lib/install/validate-args.js:60:3)
+20 verbose stack     at Array.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/slide/lib/bind-actor.js:15:8)
+20 verbose stack     at LOOP (/usr/local/lib/node_modules/npm/node_modules/slide/lib/chain.js:15:14)
+20 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/slide/lib/chain.js:18:7
+20 verbose stack     at checkSelf (/usr/local/lib/node_modules/npm/lib/install/validate-args.js:68:72)
+20 verbose stack     at Array.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/slide/lib/bind-actor.js:15:8)
+20 verbose stack     at LOOP (/usr/local/lib/node_modules/npm/node_modules/slide/lib/chain.js:15:14)
+20 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/slide/lib/chain.js:18:7
+20 verbose stack     at hasMinimumFields (/usr/local/lib/node_modules/npm/lib/install/validate-args.js:30:12)
+20 verbose stack     at Array.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/slide/lib/bind-actor.js:15:8)
+20 verbose stack     at LOOP (/usr/local/lib/node_modules/npm/node_modules/slide/lib/chain.js:15:14)
+20 verbose stack     at chain (/usr/local/lib/node_modules/npm/node_modules/slide/lib/chain.js:20:5)
+20 verbose stack     at /usr/local/lib/node_modules/npm/lib/install/validate-args.js:16:5
+20 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:52:35
+20 verbose stack     at Array.forEach (<anonymous>)
+21 verbose pkgid node-red-contrib-canbus@1.0.1
+22 verbose cwd /data
+23 verbose Linux 5.10.63-v7l+
+24 verbose argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "--no-audit" "--no-update-notifier" "--no-fund" "--save" "--save-prefix=~" "--production" "--engine-strict" "node-red-contrib-canbus@1.0.1"
+25 verbose node v14.18.1
+26 verbose npm  v6.14.15
+27 error code ENOTSUP
+28 error notsup Unsupported engine for node-red-contrib-canbus@1.0.1: wanted: {"node":"=0.12.x"} (current: {"node":"14.18.1","npm":"6.14.15"})
+29 error notsup Not compatible with your version of node/npm: node-red-contrib-canbus@1.0.1
+30 error notsup Not compatible with your version of node/npm: node-red-contrib-canbus@1.0.1
+30 error notsup Required: {"node":"=0.12.x"}
+30 error notsup Actual:   {"npm":"6.14.15","node":"14.18.1"}
+31 verbose exit [ 1, true ]

@@ -1,0 +1,13 @@
+{
+    "name": "node-red-project",
+    "description": "A Node-RED Project",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "node-red-contrib-aedes": "~0.6.0",
+        "node-red-contrib-buffer-parser": "~3.1.7",
+        "node-red-contrib-can": "~1.1.2",
+        "node-red-contrib-i2c": "~0.8.3",
+        "node-red-contrib-redplc-rpi-pcf8574": "~1.0.10"
+    }
+}

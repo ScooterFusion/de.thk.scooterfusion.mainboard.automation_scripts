@@ -1,0 +1,69 @@
+version: "3.7"
+
+services:
+  node-red:
+    container_name: node-red
+    image: nodered/node-red:latest
+    user: "0:1000"
+    privileged: true
+    ports:
+      - "1880:1880"
+      - "1883:1883"
+    volumes:
+      - /home/scooterfusion/de.thk.scooterfusion.mainboard.automation_scripts/volumes/node-red:/data
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    devices:
+      - /dev/mem:/dev/mem
+      - /dev/gpiomem:/dev/gpiomem
+      - /dev/i2c-1:/dev/i2c-1
+    restart: unless-stopped
+    networks:
+      scooterfusion-network:
+        ipv4_address: "172.20.128.3"
+  handlebar-control:
+    container_name: handlebar-control
+    image: tobiasbohnen/de.thk.scooterfusion.mainboard.handlebarcontrol:latest
+    user: "0:1000"
+    privileged: true
+    ports:
+      - "8001:8001"
+    devices:
+      - /dev/mem:/dev/mem
+      - /dev/gpiomem:/dev/gpiomem
+      - /dev/i2c-1:/dev/i2c-1
+    restart: unless-stopped
+    networks:
+      scooterfusion-network:
+        ipv4_address: "172.20.128.1"
+  can_to_mqtt:
+    depends_on:
+      - node-red
+    container_name: can_to_mqtt
+    image: tobiasbohnen/de.thk.scooterfusion.mainboard.can_to_mqtt:latest
+    restart: unless-stopped
+    network_mode: "host"
+  mqtt_to_can:
+    depends_on:
+      - node-red
+    container_name: mqtt_to_can
+    image: tobiasbohnen/de.thk.scooterfusion.mainboard.mqtt_to_can:latest
+    restart: unless-stopped
+    network_mode: "host"
+  can-mapping:
+    depends_on:
+      - can_to_mqtt
+      - mqtt_to_can
+    container_name: can-mapping
+    image: tobiasbohnen/de.thk.scooterfusion.mainboard.can.api:latest
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    networks:
+      scooterfusion-network:
+        ipv4_address: "172.20.128.2"
+networks:
+  scooterfusion-network:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
