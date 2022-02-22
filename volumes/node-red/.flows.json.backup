@@ -81,9 +81,7 @@
         "x": 480,
         "y": 280,
         "wires": [
-            [
-                "a5ae51c98c3d28de"
-            ]
+            []
         ]
     },
     {
@@ -94,7 +92,7 @@
         "method": "POST",
         "ret": "txt",
         "paytoqs": "body",
-        "url": "localhost:1880/message/add",
+        "url": "172.20.128.2:8080/message/steering",
         "tls": "",
         "persist": false,
         "proxy": "",
@@ -158,11 +156,12 @@
         "type": "debug",
         "z": "ca360d61d01965ce",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
         "x": 1610,
@@ -218,12 +217,13 @@
         "name": "",
         "property": "payload",
         "action": "str",
-        "pretty": false,
+        "pretty": true,
         "x": 1030,
         "y": 280,
         "wires": [
             [
-                "8416cc354f0b469c"
+                "8416cc354f0b469c",
+                "eed2a425eabe4011"
             ]
         ]
     },
@@ -273,6 +273,52 @@
                 "1a097d22db19941f"
             ]
         ]
+    },
+    {
+        "id": "eed2a425eabe4011",
+        "type": "debug",
+        "z": "ca360d61d01965ce",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1340,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "43869b39b5155189",
+        "type": "tcp request",
+        "z": "ca360d61d01965ce",
+        "server": "172.20.128.2:8080/message/steering",
+        "port": "",
+        "out": "time",
+        "ret": "buffer",
+        "splitc": "0",
+        "name": "",
+        "x": 1410,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b22d446d12721e69",
+        "type": "tcp out",
+        "z": "ca360d61d01965ce",
+        "host": "",
+        "port": "",
+        "beserver": "client",
+        "base64": false,
+        "end": false,
+        "name": "",
+        "x": 1120,
+        "y": 80,
+        "wires": []
     },
     {
         "id": "b14fd5819e7c8204",
@@ -418,7 +464,7 @@
         "id": "37f62fa849ba1ce4",
         "type": "pcf8574",
         "z": "38b3d4acd9a65f15",
-        "devadr": "0",
+        "devadr": "8",
         "mode": "1",
         "addressdi": 0,
         "addressdo": "4",

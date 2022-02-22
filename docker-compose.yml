@@ -1,6 +1,14 @@
 version: "3.7"
 
 services:
+  #compose-updater:
+  #  container_name: compose-updater
+  #  image: tobiasbohnen/docker-compose-updater
+  #  volumes:
+  #    - /var/run/docker.sock:/var/run/docker.sock \
+  #    - /docker-compose.yml:/docker-compose-updater/docker-compose.yml \
+  #  environment: 
+  #    - CHECK_INTERVAL_SEC=60
   node-red:
     container_name: node-red
     image: nodered/node-red:latest
@@ -39,21 +47,20 @@ services:
   can_to_mqtt:
     depends_on:
       - node-red
+      - can-mapping
     container_name: can_to_mqtt
     image: tobiasbohnen/de.thk.scooterfusion.mainboard.can_to_mqtt:latest
     restart: unless-stopped
     network_mode: "host"
   mqtt_to_can:
     depends_on:
+      - can-mapping
       - node-red
     container_name: mqtt_to_can
     image: tobiasbohnen/de.thk.scooterfusion.mainboard.mqtt_to_can:latest
     restart: unless-stopped
     network_mode: "host"
   can-mapping:
-    depends_on:
-      - can_to_mqtt
-      - mqtt_to_can
     container_name: can-mapping
     image: tobiasbohnen/de.thk.scooterfusion.mainboard.can.api:latest
     restart: unless-stopped
