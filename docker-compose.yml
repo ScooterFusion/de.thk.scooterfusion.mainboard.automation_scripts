@@ -29,35 +29,20 @@ services:
     networks:
       scooterfusion-network:
         ipv4_address: "172.20.128.3"
-  handlebar-control:
-    container_name: handlebar-control
-    image: tobiasbohnen/de.thk.scooterfusion.mainboard.handlebarcontrol:latest
-    user: "0:1000"
-    privileged: true
-    ports:
-      - "8001:8001"
-    devices:
-      - /dev/mem:/dev/mem
-      - /dev/gpiomem:/dev/gpiomem
-      - /dev/i2c-1:/dev/i2c-1
-    restart: unless-stopped
-    networks:
-      scooterfusion-network:
-        ipv4_address: "172.20.128.1"
-  can_to_mqtt:
+  can_to_ip:
     depends_on:
       - node-red
       - can-mapping
     container_name: can_to_mqtt
-    image: tobiasbohnen/de.thk.scooterfusion.mainboard.can_to_mqtt:latest
+    image: tobiasbohnen/de.thk.scooterfusion.mainboard.can_to_ip:latest
     restart: unless-stopped
     network_mode: "host"
-  mqtt_to_can:
+  ip_to_can:
     depends_on:
       - can-mapping
       - node-red
     container_name: mqtt_to_can
-    image: tobiasbohnen/de.thk.scooterfusion.mainboard.mqtt_to_can:latest
+    image: tobiasbohnen/de.thk.scooterfusion.mainboard.ip_to_can:latest
     restart: unless-stopped
     network_mode: "host"
   can-mapping:
