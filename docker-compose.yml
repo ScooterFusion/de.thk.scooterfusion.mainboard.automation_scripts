@@ -1,34 +1,6 @@
 version: "3.7"
 
 services:
-  #compose-updater:
-  #  container_name: compose-updater
-  #  image: tobiasbohnen/docker-compose-updater
-  #  volumes:
-  #    - /var/run/docker.sock:/var/run/docker.sock \
-  #    - /docker-compose.yml:/docker-compose-updater/docker-compose.yml \
-  #  environment: 
-  #    - CHECK_INTERVAL_SEC=60
-  node-red:
-    container_name: node-red
-    image: nodered/node-red:latest
-    user: "0:1000"
-    privileged: true
-    ports:
-      - "1880:1880"
-      - "1883:1883"
-    volumes:
-      - /home/scooterfusion/de.thk.scooterfusion.mainboard.automation_scripts/volumes/node-red:/data
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
-    devices:
-      - /dev/mem:/dev/mem
-      - /dev/gpiomem:/dev/gpiomem
-      - /dev/i2c-1:/dev/i2c-1
-    restart: unless-stopped
-    networks:
-      scooterfusion-network:
-        ipv4_address: "172.20.128.3"
   can_to_ip:
     depends_on:
       - node-red
