@@ -3,7 +3,6 @@ version: "3.7"
 services:
   can_to_ip:
     depends_on:
-      - node-red
       - can-mapping
     container_name: can_to_ip
     image: tobiasbohnen/de.thk.scooterfusion.mainboard.can_to_ip:latest
