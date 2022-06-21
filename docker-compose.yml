@@ -14,7 +14,9 @@ services:
     container_name: ip_to_can
     image: tobiasbohnen/de.thk.scooterfusion.mainboard.ip_to_can:latest
     restart: unless-stopped
-    network_mode: "host"
+    networks:
+      scooterfusion-network:
+        ipv4_address: "172.20.128.3"
   can-mapping:
     container_name: can-mapping
     image: tobiasbohnen/de.thk.scooterfusion.mainboard.can.api:latest
